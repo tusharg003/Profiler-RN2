@@ -10,6 +10,10 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../src/App';
 import * as Yup from 'yup';
 
+// redux
+import {addProfile} from './redux/action';
+import {useDispatch} from 'react-redux';
+
 type formProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
 };
@@ -33,11 +37,14 @@ const Form = ({navigation}: formProps) => {
   const [bio, setBio] = useState(''); // Bio state
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
+  const dispatch = useDispatch();
   const handleProfileCreation = async () => {
     const inputs = {name, age, mail, bio};
     try {
       setErrors({});
       await FormSchema.validate(inputs, {abortEarly: false});
+      //redux
+      dispatch(addProfile(inputs));
       navigation.navigate('Details', inputs);
     } catch (validationErrors: any) {
       const errorMessages: {[key: string]: string} = {};

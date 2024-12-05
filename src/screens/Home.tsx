@@ -1,18 +1,33 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
+import ProfileCard from '../../components/ProfileCard';
+import userData from '../../backend/db.json';
 // import Form from '../../components/Form';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({navigation}: HomeProps) => {
+  const profiles = userData.users;
+
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
         Welcome
         <Text style={styles.exclamation}>!</Text>
       </Text>
+      <ScrollView style={styles.profileListScrollView}>
+        {profiles.map((profile, idx) => (
+          <ProfileCard key={idx} prop={profile} />
+        ))}
+      </ScrollView>
       <TouchableOpacity
         style={styles.inputButton}
         onPress={() => {
@@ -29,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAF0F1',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   welcomeText: {
     fontSize: 70,
@@ -41,6 +56,9 @@ const styles = StyleSheet.create({
   },
   smallText: {
     color: 'black',
+  },
+  profileListScrollView: {
+    paddingHorizontal: 20,
   },
   inputButton: {
     alignItems: 'center',
