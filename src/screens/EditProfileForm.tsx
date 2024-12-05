@@ -1,24 +1,19 @@
 //@ts-nocheck
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Form from '../../components/Form';
 
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../App';
+import EditForm from '../../components/EditForm';
 
-type ProfileFormProps = NativeStackScreenProps<
-  RootStackParamList,
-  'ProfileForm'
->;
-
-const ProfileForm = ({navigation}) => {
+const EditProfileForm = ({navigation, route}) => {
+  const {prevData} = route.params;
   return (
     <View style={styles.container}>
-      <Form navigation={navigation} />
+      <EditForm navigation={navigation} prevData={prevData} />
     </View>
   );
 };
-export default ProfileForm;
+export default EditProfileForm;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#74B9FF',

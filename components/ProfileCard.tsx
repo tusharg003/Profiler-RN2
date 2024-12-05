@@ -1,15 +1,23 @@
+//@ts-nocheck
 import React from 'react';
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {deleteProfile, editProfile} from './redux/action';
 
-// Convert to normal JS, no typing needed
 const ProfileCard = ({prop, navigation}) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = item => {
+    console.log('Delete was clicked');
+    dispatch(deleteProfile(item));
+  };
+
+  const handleEdit = item => {
+    console.log('Edit was clicked');
+    navigation.navigate('EditProfileForm', {prevData: item});
+    dispatch(editProfile(item));
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -33,11 +41,15 @@ const ProfileCard = ({prop, navigation}) => {
         <Text style={styles.text}> {prop.mail}</Text>
       </View>
       <View style={styles.menu}>
-        <TouchableOpacity style={[styles.menuBtn, styles.editBtn]}>
+        <TouchableOpacity
+          style={[styles.menuBtn, styles.editBtn]}
+          onPress={() => handleEdit(prop)}>
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.menuBtn, styles.deleteBtn]}>
+        <TouchableOpacity
+          style={[styles.menuBtn, styles.deleteBtn]}
+          onPress={() => handleDelete(prop)}>
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>

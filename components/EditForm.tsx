@@ -7,20 +7,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../src/App';
+
 import * as Yup from 'yup';
 
 // redux
-import {addProfile} from './redux/action';
+import {editProfile} from './redux/action';
 import {useDispatch} from 'react-redux';
 
-//db
-import db from '../backend/db.json';
+// //db
+// import db from '../backend/db.json';
 
-type formProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
-};
+// type formProps = {
+//   navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
+// };
 
 const FormSchema = Yup.object().shape({
   name: Yup.string().required('Name cannot be empty!'),
@@ -34,17 +33,17 @@ const FormSchema = Yup.object().shape({
   bio: Yup.string().max(200, 'Bio cannot exceed 300 characters!'), // Bio validation
 });
 
-const Form = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
-  const [age, setAge] = useState('');
-  const [bio, setBio] = useState(''); // Bio state
+const EditForm = ({navigation, prevData}) => {
+  const [name, setName] = useState(prevData.name); // Initializing with previous data
+  const [mail, setMail] = useState(prevData.mail);
+  const [age, setAge] = useState(prevData.age.toString());
+  const [bio, setBio] = useState(prevData.bio);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const dispatch = useDispatch();
   const handleProfileCreation = async () => {
     const inputs = {
-      id: db.users.length + 1,
+      id: prevData.id,
       name,
       age,
       mail,
@@ -55,8 +54,7 @@ const Form = ({navigation}) => {
       setErrors({});
       await FormSchema.validate(inputs, {abortEarly: false});
       //redux
-      dispatch(addProfile(inputs));
-      db.users.push(inputs);
+      dispatch(editProfile(inputs));
       navigation.navigate('Details', inputs);
     } catch (validationErrors: any) {
       const errorMessages: {[key: string]: string} = {};
@@ -126,7 +124,7 @@ const Form = ({navigation}) => {
   );
 };
 
-export default Form;
+export default EditForm;
 
 const styles = StyleSheet.create({
   container: {

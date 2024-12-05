@@ -17,9 +17,8 @@ type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({navigation}: HomeProps) => {
   const profiles = userData.users;
-
   const profileData = useSelector(state => state.reducer);
-  // console.log(profileData);
+  // console.log('From the home page', profileData);
 
   return (
     <View style={styles.container}>
@@ -28,14 +27,14 @@ const Home = ({navigation}: HomeProps) => {
         <Text style={styles.exclamation}>!</Text>
       </Text>
       <ScrollView style={styles.profileListScrollView}>
-        {profiles.map((profile, idx) => (
+        {profileData.map((profile, idx) => (
           <ProfileCard key={idx} prop={profile} navigation={navigation} />
         ))}
       </ScrollView>
       <TouchableOpacity
         style={styles.inputButton}
         onPress={() => {
-          navigation.navigate('ProfileForm');
+          navigation.navigate('ProfileForm', {isEditMode: false});
         }}>
         <Text style={styles.inputButtonText}>Create your Profile</Text>
       </TouchableOpacity>

@@ -8,6 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './screens/Home';
 import Details from './screens/Details';
 import ProfileForm from './screens/ProfileForm';
+import EditProfileForm from './screens/EditProfileForm';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
     age: string;
     mail: string;
   };
+  EditProfileForm: any;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -39,6 +41,13 @@ function App(): React.JSX.Element {
           component={Details}
           options={{
             title: 'Profile Details',
+          }}
+        />
+        <Stack.Screen
+          name="EditProfileForm"
+          component={EditProfileForm}
+          options={{
+            title: 'Edit Profile Details',
           }}
         />
       </Stack.Navigator>
