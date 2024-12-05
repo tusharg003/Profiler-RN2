@@ -11,21 +11,25 @@ import {RootStackParamList} from '../App';
 import ProfileCard from '../../components/ProfileCard';
 import userData from '../../backend/db.json';
 // import Form from '../../components/Form';
+import {useSelector} from 'react-redux';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({navigation}: HomeProps) => {
   const profiles = userData.users;
 
+  const profileData = useSelector(state => state.reducer);
+  // console.log(profileData);
+
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
-        Welcome
+        Welcome {profileData.length}
         <Text style={styles.exclamation}>!</Text>
       </Text>
       <ScrollView style={styles.profileListScrollView}>
         {profiles.map((profile, idx) => (
-          <ProfileCard key={idx} prop={profile} />
+          <ProfileCard key={idx} prop={profile} navigation={navigation} />
         ))}
       </ScrollView>
       <TouchableOpacity

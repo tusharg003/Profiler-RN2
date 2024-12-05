@@ -1,18 +1,27 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-interface ProfileCardProps {
-  prop: {
-    name: string;
-    image: string;
-    mail: string;
-    age: number;
-  };
-}
-
-const ProfileCard = ({prop}: ProfileCardProps) => {
+// Convert to normal JS, no typing needed
+const ProfileCard = ({prop, navigation}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate('Details', {
+          name: prop.name,
+          age: prop.age,
+          mail: prop.mail,
+          bio: prop.bio,
+          image: prop.image,
+        });
+      }}>
       <Image
         source={{uri: prop.image}}
         style={styles.image}
@@ -23,7 +32,16 @@ const ProfileCard = ({prop}: ProfileCardProps) => {
         <Text style={styles.text}> {prop.age}</Text>
         <Text style={styles.text}> {prop.mail}</Text>
       </View>
-    </View>
+      <View style={styles.menu}>
+        <TouchableOpacity style={[styles.menuBtn, styles.editBtn]}>
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.menuBtn, styles.deleteBtn]}>
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -61,7 +79,26 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   text: {
-    fontSize: 15,
+    paddingLeft: 4,
+    fontSize: 12,
     color: 'gray',
+  },
+  menu: {},
+  menuBtn: {
+    padding: 10,
+    borderRadius: 12,
+    margin: 2,
+    alignItems: 'center',
+  },
+  editBtn: {
+    backgroundColor: '#0A79DF',
+  },
+  deleteBtn: {
+    backgroundColor: '#E83350',
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 10,
   },
 });

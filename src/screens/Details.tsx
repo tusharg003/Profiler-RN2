@@ -12,25 +12,26 @@ type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'Details'>;
 type DetailsProps = {
   route: {
     params: {
-      userId?: string;
+      userId?: any;
       name?: string;
-      age?: string;
+      age?: any;
       mail?: string;
       bio?: string;
+      image?: any;
     };
   };
 };
 
 const Details = ({route}: DetailsProps) => {
   const navigation = useNavigation<NavigationProps>();
-  const {name, age, mail, bio} = route.params;
-
+  const {name, age, mail, bio, image} = route.params;
+  // console.log(image);
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         {/* <Text style={styles.text}>Details: {userId}</Text> */}
         <View style={styles.avatarCard}>
-          <Image source={avatars.user} style={styles.avatarImg} />
+          <Image source={{uri: image}} style={styles.avatarImg} />
         </View>
         <Text style={styles.text}> {name}</Text>
         <Text style={styles.text}> {age} years old</Text>

@@ -9,10 +9,14 @@ import {
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../src/App';
 import * as Yup from 'yup';
+import avatars from '../avatarImages/images';
 
 // redux
 import {addProfile} from './redux/action';
 import {useDispatch} from 'react-redux';
+
+//db
+import db from '../backend/db.json';
 
 type formProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
@@ -31,20 +35,28 @@ const FormSchema = Yup.object().shape({
 });
 
 const Form = ({navigation}: formProps) => {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
-  const [age, setAge] = useState('');
-  const [bio, setBio] = useState(''); // Bio state
+  const [name, setName] = useState('Aryan');
+  const [mail, setMail] = useState('abc@gmail.com');
+  const [age, setAge] = useState('23');
+  const [bio, setBio] = useState('Hello world'); // Bio state
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const dispatch = useDispatch();
   const handleProfileCreation = async () => {
-    const inputs = {name, age, mail, bio};
+    const inputs = {
+      id: db.users.length + 1,
+      name,
+      age,
+      mail,
+      bio,
+      image: 'https://randomuser.me/api/portraits/men/5.jpg', // Set default image or empty string if undefined
+    };
     try {
       setErrors({});
       await FormSchema.validate(inputs, {abortEarly: false});
       //redux
       dispatch(addProfile(inputs));
+      db.users.push(inputs);
       navigation.navigate('Details', inputs);
     } catch (validationErrors: any) {
       const errorMessages: {[key: string]: string} = {};
@@ -54,7 +66,6 @@ const Form = ({navigation}: formProps) => {
       setErrors(errorMessages);
     }
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.inputGroup}>
