@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
-import avatars from '../../avatarImages/images';
+
 
 // Define the type for the navigation prop
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'Details'>;
