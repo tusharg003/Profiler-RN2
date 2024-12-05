@@ -17,6 +17,7 @@ import {useDispatch} from 'react-redux';
 
 //db
 import db from '../backend/db.json';
+import {randomNumber} from './randomNumber';
 
 type formProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
@@ -35,10 +36,10 @@ const FormSchema = Yup.object().shape({
 });
 
 const Form = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
-  const [age, setAge] = useState('');
-  const [bio, setBio] = useState(''); // Bio state
+  const [name, setName] = useState('A');
+  const [mail, setMail] = useState('tusahr@gamil.com');
+  const [age, setAge] = useState('23');
+  const [bio, setBio] = useState('Hello all'); // Bio state
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const Form = ({navigation}) => {
       age,
       mail,
       bio,
-      image: 'https://randomuser.me/api/portraits/men/5.jpg', // Set default image or empty string if undefined
+      image: `https://randomuser.me/api/portraits/lego/${randomNumber()}.jpg`, // Set default image or empty string if undefined
     };
     try {
       setErrors({});

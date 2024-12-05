@@ -48,7 +48,6 @@ const EditForm = ({navigation, prevData}) => {
       age,
       mail,
       bio,
-      image: 'https://randomuser.me/api/portraits/men/5.jpg', // Set default image or empty string if undefined
     };
     try {
       setErrors({});
