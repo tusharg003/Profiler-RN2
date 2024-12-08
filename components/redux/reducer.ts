@@ -3,7 +3,7 @@
 import {
   ADD_PROFILE_TO_STORE,
   DELETE_PROFILE_FROM_STORE,
-  EDIT_PROFILE,
+  EDIT_PROFILE_FROM_STORE,
   SET_ALL_PROFILES,
   SET_ALL_PROFILES_START,
 } from './constants';
@@ -29,9 +29,9 @@ export const reducer = (state = initialState, action) => {
         profiles: result, // Return new state with updated profiles array
       };
 
-    case EDIT_PROFILE:
-      console.log('To Edit ', action.data);
-      let resultt = state.map(
+    case EDIT_PROFILE_FROM_STORE:
+      console.log('To Edit  ', action.data);
+      let resultt = state.profiles.map(
         profile =>
           profile.id === action.data.id
             ? {...profile, ...action.data} // Spread the original profile and update with new data

@@ -5,6 +5,7 @@ import {
   DELETE_PROFILE,
   DELETE_PROFILE_FROM_STORE,
   EDIT_PROFILE,
+  EDIT_PROFILE_FROM_STORE,
   GET_ALL_PROFILES,
   SET_ALL_PROFILES,
   SET_ALL_PROFILES_START,
@@ -56,6 +57,12 @@ export function deleteProfileFromStore(id) {
 export function editProfile(item) {
   return {
     type: EDIT_PROFILE,
+    data: item,
+  };
+}
+export function editProfileFromStore(item) {
+  return {
+    type: EDIT_PROFILE_FROM_STORE,
     data: item,
   };
 }
