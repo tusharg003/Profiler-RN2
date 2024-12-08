@@ -1,6 +1,8 @@
-import React from 'react';
+//@ts-nocheck
+
+import React, {useEffect} from 'react';
 import {
-  Button,
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,34 +12,40 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 import ProfileCard from '../../components/ProfileCard';
-import userData from '../../backend/db.json';
-// import Form from '../../components/Form';
+
 import {useDispatch, useSelector} from 'react-redux';
-import {getProfiles} from '../../components/redux/action';
+import {gettingProfiles} from '../../components/redux/action';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({navigation}: HomeProps) => {
   // const profiles = userData.users;
 
-  const profileData = useSelector(state => state.reducer);
+  const {profiles = [], loading = true} = useSelector(state => state.reducer);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(gettingProfiles()); // Fetch profiles on app load
+  }, [dispatch]);
+
   // console.log('From the home page', profileData);
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
-        Welcome {profileData.length}
+        Welcome {profiles.length}
         <Text style={styles.exclamation}>!</Text>
       </Text>
-      <ScrollView style={styles.profileListScrollView}>
-        {profileData.map((profile, idx) => (
-          <ProfileCard key={idx} prop={profile} navigation={navigation} />
-        ))}
-      </ScrollView>
-      <Button
-        title="Get all Profiles from saga"
-        onPress={() => dispatch(getProfiles())}
-      />
+
+      {loading ? (
+        <ActivityIndicator size={'large'} color="#0A79DF" />
+      ) : (
+        <ScrollView style={styles.profileListScrollView}>
+          {profiles.map((profile, idx) => (
+            <ProfileCard key={idx} prop={profile} navigation={navigation} />
+          ))}
+        </ScrollView>
+      )}
+
       <TouchableOpacity
         style={styles.inputButton}
         onPress={() => {

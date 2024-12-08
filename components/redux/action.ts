@@ -5,7 +5,12 @@ import {
   EDIT_PROFILE,
   GET_ALL_PROFILES,
   SET_ALL_PROFILES,
+  SET_ALL_PROFILES_START,
 } from './constants';
+
+export function gettingProfiles() {
+  return {type: SET_ALL_PROFILES_START};
+}
 
 export function setProfile(item) {
   console.log('items loading');

@@ -1,0 +1,28 @@
+
+---
+
+1. **Home Component Mounts:**
+   - The `useEffect` hook in the `Home` component triggers the `gettingProfiles()` function when the component mounts.
+
+2. **Action Dispatch:**
+   - The `gettingProfiles()` function creates an action of type `SET_ALL_PROFILES_START` (defined in `action.ts`) and dispatches it.
+
+3. **Saga Intercepts the Action:**
+   - The `profileSaga` (defined in `profileSaga.ts`) listens for the `SET_ALL_PROFILES_START` action using `takeEvery`. When this action is detected, it calls the `getProfilesAPI` generator function.
+
+4. **API Fetch:**
+   - Inside the `getProfilesAPI` function:
+     - A `fetch` request is made to the API endpoint.
+     - The response is converted to JSON.
+     - An action of type `SET_ALL_PROFILES` is dispatched, carrying the fetched data.
+
+5. **Reducer Updates State:**
+   - The reducer (defined in `reducer.ts`) processes the `SET_ALL_PROFILES` action.
+     - It updates the Redux state by storing the fetched profiles in the `profiles` array.
+     - It sets `loading` to `false`.
+
+6. **UI Re-renders:**
+   - The `Home` component retrieves the updated `profiles` and `loading` state using `useSelector`.
+   - Since `loading` is `false`, the component renders the fetched profiles.
+
+---

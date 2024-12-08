@@ -22,7 +22,7 @@ function* getProfilesAPI() {
 
 function* profileSaga() {
   console.log('calling saga');
-  yield takeEvery(actionType.GET_ALL_PROFILES, getProfilesAPI);
+  yield takeEvery(actionType.SET_ALL_PROFILES_START, getProfilesAPI);
 }
 
 export default profileSaga;
