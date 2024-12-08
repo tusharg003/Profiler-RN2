@@ -2,7 +2,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {deleteProfile, editProfile} from './redux/action';
+import {deleteProfile} from './redux/action';
 
 const ProfileCard = ({prop, navigation}) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const ProfileCard = ({prop, navigation}) => {
   const handleEdit = item => {
     console.log('Edit was clicked');
     navigation.navigate('EditProfileForm', {prevData: item});
-    dispatch(editProfile(item));
+    // dispatch(editProfile(item));
   };
 
   return (

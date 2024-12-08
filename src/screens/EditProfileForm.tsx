@@ -6,6 +6,8 @@ import EditForm from '../../components/EditForm';
 
 const EditProfileForm = ({navigation, route}) => {
   const {prevData} = route.params;
+  // console.log(route.params.prevData);
+  // console.log(prevData);
   return (
     <View style={styles.container}>
       <EditForm navigation={navigation} prevData={prevData} />

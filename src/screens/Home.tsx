@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import {
   ScrollView,
@@ -16,7 +17,7 @@ import {useSelector} from 'react-redux';
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({navigation}: HomeProps) => {
-  const profiles = userData.users;
+userData.users;
   const profileData = useSelector(state => state.reducer);
   // console.log('From the home page', profileData);
 
@@ -34,7 +35,7 @@ const Home = ({navigation}: HomeProps) => {
       <TouchableOpacity
         style={styles.inputButton}
         onPress={() => {
-          navigation.navigate('ProfileForm', {isEditMode: false});
+          navigation.navigate('ProfileForm');
         }}>
         <Text style={styles.inputButtonText}>Create your Profile</Text>
       </TouchableOpacity>

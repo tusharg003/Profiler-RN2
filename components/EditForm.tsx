@@ -41,19 +41,23 @@ const EditForm = ({navigation, prevData}) => {
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const dispatch = useDispatch();
-  const handleProfileCreation = async () => {
+
+  const handleEditSumbit = async () => {
     const inputs = {
       id: prevData.id,
       name,
       age,
       mail,
       bio,
+      image: prevData.image,
     };
     try {
       setErrors({});
+      console.log('Edit Submit clicked!');
       await FormSchema.validate(inputs, {abortEarly: false});
       //redux
       dispatch(editProfile(inputs));
+      //navigation
       navigation.navigate('Details', inputs);
     } catch (validationErrors: any) {
       const errorMessages: {[key: string]: string} = {};
@@ -63,6 +67,7 @@ const EditForm = ({navigation, prevData}) => {
       setErrors(errorMessages);
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputGroup}>
@@ -114,9 +119,7 @@ const EditForm = ({navigation, prevData}) => {
         {errors.bio && <Text style={styles.errorText}>{errors.bio}</Text>}
       </View>
 
-      <TouchableOpacity
-        style={styles.inputButton}
-        onPress={handleProfileCreation}>
+      <TouchableOpacity style={styles.inputButton} onPress={handleEditSumbit}>
         <Text style={styles.inputButtonText}>Submit</Text>
       </TouchableOpacity>
     </View>
