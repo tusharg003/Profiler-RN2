@@ -1,8 +1,14 @@
-//@ts-nocheck 
+//@ts-nocheck
 
-import {ADD_PROFILE, DELETE_PROFILE, EDIT_PROFILE} from './constants';
+import {
+  ADD_PROFILE,
+  DELETE_PROFILE,
+  EDIT_PROFILE,
+  SET_ALL_PROFILES,
+} from './constants';
 import db from '../../backend/db.json';
 const initialState = db.users;
+
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PROFILE:
@@ -24,6 +30,9 @@ export const reducer = (state = initialState, action) => {
       );
       console.log('After editing ', resultt);
       return resultt; // Return the updated state
+    case SET_ALL_PROFILES:
+      console.log('Bringing in all the data from DB', action.data);
+      return [...state, ...action.data];
     default:
       return state;
   }

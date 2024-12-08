@@ -1,6 +1,6 @@
-//@ts-nocheck
 import React from 'react';
 import {
+  Button,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,15 +12,17 @@ import {RootStackParamList} from '../App';
 import ProfileCard from '../../components/ProfileCard';
 import userData from '../../backend/db.json';
 // import Form from '../../components/Form';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProfiles} from '../../components/redux/action';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({navigation}: HomeProps) => {
-userData.users;
-  const profileData = useSelector(state => state.reducer);
-  // console.log('From the home page', profileData);
+  // const profiles = userData.users;
 
+  const profileData = useSelector(state => state.reducer);
+  const dispatch = useDispatch();
+  // console.log('From the home page', profileData);
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>
@@ -32,6 +34,10 @@ userData.users;
           <ProfileCard key={idx} prop={profile} navigation={navigation} />
         ))}
       </ScrollView>
+      <Button
+        title="Get all Profiles from saga"
+        onPress={() => dispatch(getProfiles())}
+      />
       <TouchableOpacity
         style={styles.inputButton}
         onPress={() => {
