@@ -28,6 +28,8 @@ const Home = ({navigation}: HomeProps) => {
     dispatch(gettingProfiles()); // Fetch profiles on app load
   }, [dispatch]);
 
+  console.log('Profiles in Home:', profiles);
+
   // console.log('From the home page', profileData);
   return (
     <View style={styles.container}>
@@ -40,8 +42,12 @@ const Home = ({navigation}: HomeProps) => {
         <ActivityIndicator size={'large'} color="#0A79DF" />
       ) : (
         <ScrollView style={styles.profileListScrollView}>
-          {profiles.map((profile, idx) => (
-            <ProfileCard key={idx} prop={profile} navigation={navigation} />
+          {profiles.map(profile => (
+            <ProfileCard
+              key={profile.id}
+              prop={profile}
+              navigation={navigation}
+            />
           ))}
         </ScrollView>
       )}

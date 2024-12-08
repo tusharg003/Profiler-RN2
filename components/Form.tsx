@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../src/App';
+// import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+// import {RootStackParamList} from '../src/App';
 import * as Yup from 'yup';
 
 // redux
@@ -19,9 +19,9 @@ import {useDispatch} from 'react-redux';
 import db from '../backend/db.json';
 import {randomNumber} from './randomNumber';
 
-type formProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
-};
+// type formProps = {
+//   navigation: NativeStackNavigationProp<RootStackParamList, 'ProfileForm'>; // Form component in ProfileForm route
+// };
 
 const FormSchema = Yup.object().shape({
   name: Yup.string().required('Name cannot be empty!'),

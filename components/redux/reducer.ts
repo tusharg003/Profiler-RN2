@@ -2,7 +2,7 @@
 
 import {
   ADD_PROFILE_TO_STORE,
-  DELETE_PROFILE,
+  DELETE_PROFILE_FROM_STORE,
   EDIT_PROFILE,
   SET_ALL_PROFILES,
   SET_ALL_PROFILES_START,
@@ -18,15 +18,15 @@ export const reducer = (state = initialState, action) => {
     case ADD_PROFILE_TO_STORE:
       return {...state, profiles: [...state.profiles, action.data]};
 
-    case DELETE_PROFILE:
-      console.log('DELETED ', action.data);
-      let result = state.filter(item => {
-        return item.id !== action.data.id;
-      });
-      console.log('Result after deletion', result);
+    case DELETE_PROFILE_FROM_STORE:
+      console.log('Before Deletion:', state.profiles); // Log profiles before deletion
+      const result = state.profiles.filter(
+        profile => profile.id !== action.data, // this is the id
+      ); // Filter profiles
+      console.log('After Deletion:', result); // Log profiles after deletion
       return {
         ...state,
-        profiles: result,
+        profiles: result, // Return new state with updated profiles array
       };
 
     case EDIT_PROFILE:
@@ -42,6 +42,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         profiles: resultt,
       }; // Return the updated state
+
     case SET_ALL_PROFILES_START:
       console.log('Loading profiles');
       return {...state, loading: true};

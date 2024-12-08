@@ -41,10 +41,42 @@ function* addProfileAPI(action) {
   }
 }
 
+function* deleteProfileAPI(action) {
+  const request = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const item = action.data;
+  const id = action.data.id;
+  console.log(item.id);
+  try {
+    // DELETE request to the API
+    let response = yield fetch(
+      `https://6751ffc5d1983b9597b5162a.mockapi.io/profiler/profiles/${id}`,
+      request,
+    );
+
+    if (response.ok) {
+      console.log(`Successfully deleted profile with ID: ${id}`);
+      // Dispatch an action to remove the profile from the store
+      yield put({type: actionType.DELETE_PROFILE_FROM_STORE, data: id});
+    } else {
+      console.error(
+        `Failed to delete profile with ID: ${id}. Status: ${response.status}`,
+      );
+    }
+  } catch (error) {
+    console.error('Error while deleting profile:', error);
+  }
+}
+
 function* profileSaga() {
   console.log('calling saga');
   yield takeEvery(actionType.SET_ALL_PROFILES_START, getProfilesAPI);
   yield takeEvery(actionType.ADD_PROFILE, addProfileAPI);
+  yield takeEvery(actionType.DELETE_PROFILE, deleteProfileAPI);
 }
 
 export default profileSaga;

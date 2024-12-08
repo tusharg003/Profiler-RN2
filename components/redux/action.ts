@@ -3,6 +3,7 @@ import {
   ADD_PROFILE,
   ADD_PROFILE_TO_STORE,
   DELETE_PROFILE,
+  DELETE_PROFILE_FROM_STORE,
   EDIT_PROFILE,
   GET_ALL_PROFILES,
   SET_ALL_PROFILES,
@@ -43,6 +44,12 @@ export function deleteProfile(item) {
   return {
     type: DELETE_PROFILE,
     data: item,
+  };
+}
+export function deleteProfileFromStore(id) {
+  return {
+    type: DELETE_PROFILE_FROM_STORE,
+    data: id,
   };
 }
 
