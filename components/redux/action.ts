@@ -1,6 +1,7 @@
 //@ts-nocheck
 import {
   ADD_PROFILE,
+  ADD_PROFILE_TO_STORE,
   DELETE_PROFILE,
   EDIT_PROFILE,
   GET_ALL_PROFILES,
@@ -28,6 +29,12 @@ export function getProfiles() {
 export function addProfile(item) {
   return {
     type: ADD_PROFILE,
+    data: item,
+  };
+}
+export function addProfileToStore(item) {
+  return {
+    type: ADD_PROFILE_TO_STORE,
     data: item,
   };
 }

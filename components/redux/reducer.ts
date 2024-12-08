@@ -1,7 +1,7 @@
 //@ts-nocheck
 
 import {
-  ADD_PROFILE,
+  ADD_PROFILE_TO_STORE,
   DELETE_PROFILE,
   EDIT_PROFILE,
   SET_ALL_PROFILES,
@@ -15,7 +15,7 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PROFILE:
+    case ADD_PROFILE_TO_STORE:
       return {...state, profiles: [...state.profiles, action.data]};
 
     case DELETE_PROFILE:

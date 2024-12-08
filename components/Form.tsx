@@ -57,7 +57,7 @@ const Form = ({navigation}) => {
       await FormSchema.validate(inputs, {abortEarly: false});
       //redux
       dispatch(addProfile(inputs));
-      db.users.push(inputs);
+
       navigation.navigate('Details', inputs);
     } catch (validationErrors: any) {
       const errorMessages: {[key: string]: string} = {};
