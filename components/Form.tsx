@@ -36,10 +36,10 @@ const FormSchema = Yup.object().shape({
 });
 
 const Form = ({navigation}) => {
-  const [name, setName] = useState('A');
-  const [mail, setMail] = useState('tusahr@gamil.com');
-  const [age, setAge] = useState('23');
-  const [bio, setBio] = useState('Hello all'); // Bio state
+  const [name, setName] = useState('');
+  const [mail, setMail] = useState('');
+  const [age, setAge] = useState('');
+  const [bio, setBio] = useState(''); // Bio state
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const dispatch = useDispatch();

@@ -33,24 +33,28 @@ const Home = ({navigation}: HomeProps) => {
   // console.log('From the home page', profileData);
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>
-        Welcome {profiles.length}
-        <Text style={styles.exclamation}>!</Text>
-      </Text>
-
-      {loading ? (
-        <ActivityIndicator size={'large'} color="#0A79DF" />
-      ) : (
-        <ScrollView style={styles.profileListScrollView}>
-          {profiles.map(profile => (
+      <View style={styles.topbar}>
+        <Text style={styles.welcomeText}>
+          Welcome
+          <Text style={styles.exclamation}>!</Text>
+        </Text>
+        <Text>Total Profiles: {profiles.length}</Text>
+      </View>
+      <ScrollView style={styles.profileListScrollView}>
+        {loading ? (
+          <View style={styles.loader}>
+            <ActivityIndicator size={'large'} color="#0A79DF" />
+          </View>
+        ) : (
+          profiles.map(profile => (
             <ProfileCard
               key={profile.id}
               prop={profile}
               navigation={navigation}
             />
-          ))}
-        </ScrollView>
-      )}
+          ))
+        )}
+      </ScrollView>
 
       <TouchableOpacity
         style={styles.inputButton}
@@ -64,6 +68,11 @@ const Home = ({navigation}: HomeProps) => {
 };
 export default Home;
 const styles = StyleSheet.create({
+  topbar: {
+    // flex: 1,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
   container: {
     backgroundColor: '#EAF0F1',
     flex: 1,
@@ -83,6 +92,9 @@ const styles = StyleSheet.create({
   },
   profileListScrollView: {
     paddingHorizontal: 20,
+  },
+  loader: {
+    marginVertical: 300,
   },
   inputButton: {
     alignItems: 'center',

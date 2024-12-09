@@ -2,7 +2,6 @@
 
 import {takeEvery, put} from 'redux-saga/effects';
 import * as actionType from './constants';
-
 function* getProfilesAPI() {
   try {
     // Fetch data from the API
@@ -11,10 +10,18 @@ function* getProfilesAPI() {
     );
     let data = yield response.json();
 
-    console.log('data');
+    console.log('Fetched data:', data);
 
-    // Dispatch an action to store the fetched data
-    yield put({type: actionType.SET_ALL_PROFILES, data});
+    // Check for null or invalid values in the required fields
+    const validData = data.filter(profile => {
+      // Ensure the required fields (name, age, mail) are not null, undefined, or empty
+      return profile.name && profile.age && profile.mail;
+    });
+
+    console.log('Filtered valid data:', validData);
+
+    // Dispatch an action to store the filtered data
+    yield put({type: actionType.SET_ALL_PROFILES, data: validData});
   } catch (error) {
     console.error('Error fetching profiles:', error);
   }
@@ -49,7 +56,7 @@ function* editProfileAPI(action) {
     },
     body: JSON.stringify(action.data),
   };
-  const item = action.data;
+  // console.log(`Editing profile with id ${id} `, action);
   const id = action.data.id;
   try {
     let data = yield fetch(
@@ -57,8 +64,8 @@ function* editProfileAPI(action) {
       request,
     );
     data = yield data.json();
-    console.log(`Editing profile with id ${id} `, item);
-    yield put({type: actionType.EDIT_PROFILE_FROM_STORE, data: item});
+    console.log(`Editing profile with id ${id} `, data);
+    yield put({type: actionType.EDIT_PROFILE_FROM_STORE, data});
   } catch (error) {
     console.log('Error while editing profile ', error);
   }
